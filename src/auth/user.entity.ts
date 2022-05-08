@@ -21,11 +21,11 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToMany((type) => Board, (board) => board.user, { eager: true })// { eager: true } user를 가지고올때 보드도 같이 가지고 온다라는 옵션
+  @OneToMany((type) => Board, (board) => board.user, { eager: true }) // { eager: true } user를 가지고올때 보드도 같이 가지고 온다라는 옵션
   boards: Board[];
 
   async validatePassword(password: string): Promise<boolean> {
-    let isValid = await bcrypt.compare(password, this.password);
+    const isValid = await bcrypt.compare(password, this.password);
     return isValid;
   }
 }

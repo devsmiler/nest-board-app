@@ -25,13 +25,9 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 export class BoardsController {
   constructor(private boardService: BoardsService) {} // Dependency Inejction 부분입니다.
 
-  //     @Get('/')
-  //     getAllBoard(): Board[] {
-  //         return this.boardService.getAllBoards();
-  //     }
   @Get()
-  getAllBoards(): Promise<Board[]> {
-    return this.boardService.getAllBoards();
+  getAllBoards(@GetUser() user: User): Promise<Board[]> {
+    return this.boardService.getAllBoards(user);
   }
 
   @Get('/:id')
@@ -47,9 +43,13 @@ export class BoardsController {
   ): Promise<Board> {
     return this.boardService.createBoard(createBoradDto, user);
   }
+
   @Delete('/:id')
-  deleteBoard(@Param('id', ParseIntPipe) id): Promise<void> {
-    return this.boardService.deletBoard(id);
+  deleteBoard(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.boardService.deletBoard(id, user);
   }
 
   @Patch('/:id/status')
@@ -59,17 +59,4 @@ export class BoardsController {
   ): Promise<Board> {
     return this.boardService.updateBoardStatus(id, status);
   }
-
-  //     @Delete('/:id')
-  //     deleteBoard(@Param('id') id: string ): void {
-  //         this.boardService.deleteBorad(id);
-  //     }
-
-  //     @Patch('/:id/status')
-
-  //     updateBoardStatus(
-  //         @Param('id') id: string,
-  //         @Body('status', BoardStatusValidationPipe) status: BoardStatus ) {
-  //         return this.boardService.updateBoardStatus(id, status);
-  //     }
 }
