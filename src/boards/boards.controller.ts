@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -23,10 +24,12 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 @Controller('boards')
 @UseGuards(AuthGuard())
 export class BoardsController {
+  private logger = new Logger('Boards Controller');
   constructor(private boardService: BoardsService) {} // Dependency Inejction 부분입니다.
 
   @Get()
   getAllBoards(@GetUser() user: User): Promise<Board[]> {
+    this.logger.verbose(`User "${user.username} trying to get all boards`);
     return this.boardService.getAllBoards(user);
   }
 
@@ -41,6 +44,7 @@ export class BoardsController {
     @Body() createBoradDto: CreateBoardDto,
     @GetUser() user: User,
   ): Promise<Board> {
+    this.logger.verbose(`User "${user.username} trying to create a new board. Payload: ${JSON.stringify(createBoradDto)}`)
     return this.boardService.createBoard(createBoradDto, user);
   }
 
