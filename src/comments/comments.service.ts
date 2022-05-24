@@ -1,19 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/auth/user.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class CommentsService {
-  create(createCommentDto: CreateCommentDto) {
+  async create(user: User, createCommentDto: CreateCommentDto) {
     return 'This action adds a new comment';
-  }
-
-  findAll() {
-    return `This action returns all comments`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
   }
 
   update(id: number, updateCommentDto: UpdateCommentDto) {
