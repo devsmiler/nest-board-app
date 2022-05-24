@@ -2,16 +2,16 @@ version: '3.1'
 volumes:
   mysql-db: {}
 services:
-  mysql-db:
+  mysql:
     image: mysql:5.7
     restart: always
     ports:
-      - '3306:3306'
+      - '33060:3306'
     environment:
-      - MYSQL_DATABASE=test_message
+      - MYSQL_DATABASE=board-app
       - MYSQL_ROOT_PASSWORD=1234
     volumes:
-      - ./mysql-db:/var/lib/mysql/data
+      - ./mysql-db:/var/lib/mysql
     command:
       [
         '--character-set-server=utf8mb4',
