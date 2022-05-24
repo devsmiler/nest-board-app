@@ -1,11 +1,19 @@
 version: '3.1'
+volumes:
+  mysql-db: {}
 services:
-  db:
-    image: postgres
+  mysql-db:
+    image: mysql:5.7
     restart: always
     ports:
-      - "5432:5432"
+      - '3306:3306'
     environment:
-      POSTGRES_PASSWORD: postgres
+      - MYSQL_DATABASE=test_message
+      - MYSQL_ROOT_PASSWORD=1234
     volumes:
-      - ./volumes:/var/lib/postgresql/data
+      - ./volumes:/var/lib/mysql/data
+    command:
+      [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci',
+      ]
