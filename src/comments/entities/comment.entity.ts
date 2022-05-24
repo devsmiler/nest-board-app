@@ -1,7 +1,8 @@
 import { User } from 'src/auth/user.entity';
 import { Board } from 'src/boards/ board.entity';
-import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
