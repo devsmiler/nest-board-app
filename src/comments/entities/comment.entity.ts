@@ -11,7 +11,7 @@ export class Comment {
   user: number;
 
   @ManyToOne(() => Board, (board) => board.id)
-  article: number;
+  board: number;
 
   @Column({ nullable: false })
   contents: string;
